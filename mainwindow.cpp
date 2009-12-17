@@ -10,12 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_ui->setupUi(this);
     connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesPressed()));
-
-    //Unbold and set the size of the font in the list widget.
-    QFont listFont = m_ui->lw_files->font();
-    listFont.setBold(false);
-    listFont.setPointSize(9);
-    m_ui->lw_files->setFont(listFont);
 }
 
 void MainWindow::addFilesPressed()
@@ -25,6 +19,18 @@ void MainWindow::addFilesPressed()
 
 void MainWindow::addFiles(QStringList filenames)
 {
+    //No files selected? Return
+    if (filenames.length() == 0)
+        return;
+
+    //If there's files, then clear the list of the red dummy text
+    if (m_ui->lw_files->styleSheet() != "")
+    {
+        m_ui->lw_files->setStyleSheet("");
+        m_ui->lw_files->clear();
+
+    }
+
     //TBD: Add checking for duplicates
     //TBD: Check for valid movie files
     m_ui->lw_files->addItems(filenames);
