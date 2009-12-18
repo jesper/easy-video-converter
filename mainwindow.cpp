@@ -10,15 +10,29 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_ui->setupUi(this);
     connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesPressed()));
+    connect(m_ui->pb_directory, SIGNAL(clicked()), this, SLOT(selectDirectoryPressed()));
+
+    //TBD: Disable "start" button untill files are added and output dir/format are selected.
+}
+
+void MainWindow::selectDirectoryPressed()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, QLatin1String("Select output directory"));
+
+    //No Dir selected, no need to continue
+    if (dir.isEmpty())
+        return;
+
+     m_ui->l_directory->setStyleSheet("");
+
+     //TBD: Check that the directory is writable/etc
+     m_ui->l_directory->setText(dir);
 }
 
 void MainWindow::addFilesPressed()
 {
-    addFiles(QFileDialog::getOpenFileNames(this, QLatin1String("Select video files to convert")));
-}
+    QStringList filenames = QFileDialog::getOpenFileNames(this, QLatin1String("Select video files to convert"));
 
-void MainWindow::addFiles(QStringList filenames)
-{
     //No files selected? Return
     if (filenames.length() == 0)
         return;

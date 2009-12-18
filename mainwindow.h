@@ -18,10 +18,9 @@ public:
 
 private slots:
     void addFilesPressed();
+    void selectDirectoryPressed();
 
 private:
-    void addFiles(QStringList filenames);
-
     Ui::MainWindow *m_ui;
 };
 
