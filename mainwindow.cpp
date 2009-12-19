@@ -8,13 +8,21 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), m_ui(new Ui::MainWindow)
 {
     m_ui->setupUi(this);
-    connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesPressed()));
-    connect(m_ui->pb_directory, SIGNAL(clicked()), this, SLOT(selectDirectoryPressed()));
+    connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesClicked()));
+    connect(m_ui->pb_directory, SIGNAL(clicked()), this, SLOT(selectDirectoryClicked()));
 
     //TBD: Disable "start" button untill files are added and output dir/format are selected.
+    connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startClicked()));
+
+    m_encodingManager = new EncodingManager(m_ui->lw_files);
 }
 
-void MainWindow::selectDirectoryPressed()
+void MainWindow::startClicked()
+{
+    m_encodingManager->start();
+}
+
+void MainWindow::selectDirectoryClicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, QLatin1String("Select output directory"));
 
@@ -28,7 +36,7 @@ void MainWindow::selectDirectoryPressed()
      m_ui->l_directory->setText(dir);
 }
 
-void MainWindow::addFilesPressed()
+void MainWindow::addFilesClicked()
 {
     QStringList filenames = QFileDialog::getOpenFileNames(this, QLatin1String("Select video files to convert"));
 
