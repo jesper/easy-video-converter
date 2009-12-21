@@ -12,6 +12,10 @@ public:
     EncodingManager(QListWidget *fileList);
     void run();
 
+signals:
+    void convertingFile(QListWidgetItem *file);
+    void completedFile(QListWidgetItem *file);
+
 private:
     QListWidget *m_files;
 };

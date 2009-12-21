@@ -22,6 +22,9 @@ private slots:
     void addFilesClicked();
     void selectDirectoryClicked();
     void startClicked();
+    void encoderFinished();
+    void addConvertingFile(QListWidgetItem *item);
+    void addCompletedFile(QListWidgetItem *item);
 
 private:
     Ui::MainWindow *m_ui;
