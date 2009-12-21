@@ -2,19 +2,20 @@
 
 #include "encodingmanager.h"
 
-EncodingManager::EncodingManager(QListWidget *filelist)
+EncodingManager::EncodingManager(MainWindow *ui)
 {
-    m_files = filelist;
+    m_ui = ui;
 }
 
 void EncodingManager::run()
 {
-    while (m_files->count() != 0)
+
+    while (m_ui->hasInputFiles())
     {
-        qDebug() << "Handling" << m_files->item(0)->text();
-        QListWidgetItem *file = m_files->takeItem(0);
-        emit convertingFile(file);
+        const QString filename = m_ui->takeTopInputFile();
+        qDebug() << "Handling" << filename;
+        emit convertingFile(filename);
         sleep(2);
-        emit completedFile(file);
+        emit completedFile(filename);
     }
 }

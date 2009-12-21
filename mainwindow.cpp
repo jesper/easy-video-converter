@@ -10,11 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), m_ui(new Ui::MainWindow)
 {
     m_ui->setupUi(this);
-    m_encodingManager = new EncodingManager(m_ui->lw_files);
+    m_encodingManager = new EncodingManager(this);
 
     connect(m_encodingManager, SIGNAL(finished()), this, SLOT(encoderFinished()));
-    connect(m_encodingManager, SIGNAL(convertingFile(QListWidgetItem*)), this, SLOT(addConvertingFile(QListWidgetItem*)));
-    connect(m_encodingManager, SIGNAL(completedFile(QListWidgetItem*)), this, SLOT(addCompletedFile(QListWidgetItem*)));
+    connect(m_encodingManager, SIGNAL(convertingFile(QString)), this, SLOT(addConvertingFile(QString)));
+    connect(m_encodingManager, SIGNAL(completedFile(QString)), this, SLOT(addCompletedFile(QString)));
 
     connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesClicked()));
     connect(m_ui->pb_directory, SIGNAL(clicked()), this, SLOT(selectDirectoryClicked()));
@@ -23,16 +23,30 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startClicked()));
 }
 
-void MainWindow::addConvertingFile(QListWidgetItem *file)
+const QString MainWindow::takeTopInputFile()
+{
+    return m_ui->lw_files->takeItem(0)->text();
+}
+
+bool MainWindow::hasInputFiles()
+{
+    return m_ui->lw_files->count() != 0;
+}
+
+void MainWindow::addConvertingFile(QString file)
 {
     m_ui->lw_converting->addItem(file);
 }
 
-void MainWindow::addCompletedFile(QListWidgetItem *file)
+void MainWindow::addCompletedFile(QString filename)
 {
-    QListWidgetItem *temp = m_ui->lw_converting->takeItem(m_ui->lw_converting->row(file));
-    m_ui->lw_completed->addItem(temp);
-    delete temp;
+    //Find the item in the Converting list widget
+    QList<QListWidgetItem *> items = m_ui->lw_converting->findItems(filename, Qt::MatchExactly);
+
+    //Remove the item from the Converting list widget
+    m_ui->lw_converting->takeItem(m_ui->lw_converting->row(items.first()));
+
+    m_ui->lw_completed->addItem(filename);
 }
 
 void MainWindow::encoderFinished()

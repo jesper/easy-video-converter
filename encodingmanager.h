@@ -3,21 +3,26 @@
 
 #include <QThread>
 #include <QListWidget>
+#include <QLabel>
+
+#include "mainwindow.h"
+
+class MainWindow;
 
 class EncodingManager : public QThread
 {
     Q_OBJECT
 
 public:
-    EncodingManager(QListWidget *fileList);
+    EncodingManager(MainWindow *ui);
     void run();
 
 signals:
-    void convertingFile(QListWidgetItem *file);
-    void completedFile(QListWidgetItem *file);
+    void convertingFile(const QString file);
+    void completedFile(const QString file);
 
 private:
-    QListWidget *m_files;
+    MainWindow *m_ui;
 };
 
 #endif // ENCODINGMANAGER_H
