@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startClicked()));
 }
 
-const QString MainWindow::takeTopInputFile()
+QString MainWindow::takeTopInputFile()
 {
     return m_ui->lw_files->takeItem(0)->text();
 }
@@ -51,7 +51,7 @@ void MainWindow::addCompletedFile(QString filename)
 
 void MainWindow::encoderFinished()
 {
-    m_ui->pb_start->setEnabled(true);
+    //TBD: repopulate input files widget with red "add files" text
 }
 
 void MainWindow::startClicked()
@@ -94,6 +94,9 @@ void MainWindow::addFilesClicked()
     //TBD: Add checking for duplicates
     //TBD: Check for valid movie files
     m_ui->lw_files->addItems(filenames);
+
+    if (!m_encodingManager->isRunning())
+        m_ui->pb_start->setEnabled(true);
 }
 
 MainWindow::~MainWindow()

@@ -184,6 +184,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
             <widget class="QPushButton" name="pb_start">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="font">
               <font>
                <pointsize>11</pointsize>

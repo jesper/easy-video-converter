@@ -12,7 +12,7 @@ void EncodingManager::run()
 
     while (m_ui->hasInputFiles())
     {
-        const QString filename = m_ui->takeTopInputFile();
+        QString filename = m_ui->takeTopInputFile();
         qDebug() << "Handling" << filename;
         emit convertingFile(filename);
         sleep(2);

@@ -18,8 +18,8 @@ public:
     void run();
 
 signals:
-    void convertingFile(const QString file);
-    void completedFile(const QString file);
+    void convertingFile(QString file);
+    void completedFile(QString file);
 
 private:
     MainWindow *m_ui;

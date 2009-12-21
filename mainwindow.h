@@ -21,7 +21,7 @@ public:
     ~MainWindow();
 
     bool hasInputFiles();
-    const QString takeTopInputFile();
+    QString takeTopInputFile();
 
 private slots:
     void addFilesClicked();
