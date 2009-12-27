@@ -22,18 +22,23 @@ public:
 
     bool hasInputFiles();
     QString takeTopInputFile();
+    void setStartButtonEnabled(bool enabled);
+
+public slots:
+    void addConvertingFile(QString file);
+    void addCompletedFile(QString file);
+
+signals:
+    void startClicked();
+    void inputFilesAdded();
 
 private slots:
     void addFilesClicked();
     void selectDirectoryClicked();
-    void startClicked();
-    void encoderFinished();
-    void addConvertingFile(QString file);
-    void addCompletedFile(QString file);
+    void startButtonClicked();
 
 private:
     Ui::MainWindow *m_ui;
-    EncodingManager *m_encodingManager;
 };
 
 #endif // MAINWINDOW_H

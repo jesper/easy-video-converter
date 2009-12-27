@@ -10,17 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), m_ui(new Ui::MainWindow)
 {
     m_ui->setupUi(this);
-    m_encodingManager = new EncodingManager(this);
-
-    connect(m_encodingManager, SIGNAL(finished()), this, SLOT(encoderFinished()));
-    connect(m_encodingManager, SIGNAL(convertingFile(QString)), this, SLOT(addConvertingFile(QString)));
-    connect(m_encodingManager, SIGNAL(completedFile(QString)), this, SLOT(addCompletedFile(QString)));
 
     connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesClicked()));
     connect(m_ui->pb_directory, SIGNAL(clicked()), this, SLOT(selectDirectoryClicked()));
 
     //TBD: Disable "start" button untill files are added and output dir/format are selected.
-    connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startClicked()));
+    connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startButtonClicked()));
 }
 
 QString MainWindow::takeTopInputFile()
@@ -49,16 +44,11 @@ void MainWindow::addCompletedFile(QString filename)
     m_ui->lw_completed->addItem(filename);
 }
 
-void MainWindow::encoderFinished()
-{
-    //TBD: repopulate input files widget with red "add files" text
-}
-
-void MainWindow::startClicked()
+void MainWindow::startButtonClicked()
 {
     m_ui->pb_start->setEnabled(false);
 
-    m_encodingManager->start();
+    emit startClicked();
 }
 
 void MainWindow::selectDirectoryClicked()
@@ -95,8 +85,12 @@ void MainWindow::addFilesClicked()
     //TBD: Check for valid movie files
     m_ui->lw_files->addItems(filenames);
 
-    if (!m_encodingManager->isRunning())
-        m_ui->pb_start->setEnabled(true);
+    emit inputFilesAdded();
+}
+
+void MainWindow::setStartButtonEnabled(bool enabled)
+{
+    m_ui->pb_start->setEnabled(enabled);
 }
 
 MainWindow::~MainWindow()

@@ -6,8 +6,10 @@ TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
     encodingmanager.cpp \
-    encoder.cpp
+    encoder.cpp \
+    controller.cpp
 HEADERS += mainwindow.h \
     encodingmanager.h \
-    encoder.h
+    encoder.h \
+    controller.h
 FORMS += mainwindow.ui

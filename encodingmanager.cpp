@@ -2,14 +2,16 @@
 
 #include "encodingmanager.h"
 
-EncodingManager::EncodingManager(MainWindow *ui)
+EncodingManager::EncodingManager(Controller *controller)
 {
-    m_ui = ui;
+    m_controller = controller;
+    m_runningThreads = 0;
 }
 
 void EncodingManager::dispatchEncoder()
 {
-    QString filename = m_ui->takeTopInputFile();
+    ++m_runningThreads;
+    QString filename = m_controller->takeTopInputFile();
     emit convertingFile(filename);
     Encoder *encoder = new Encoder(filename);
     connect(encoder, SIGNAL(finishedEncoding(Encoder *)), this, SLOT(encoderFinished(Encoder *)));
@@ -18,6 +20,7 @@ void EncodingManager::dispatchEncoder()
 
 void EncodingManager::encoderFinished(Encoder *encoder)
 {
+    --m_runningThreads;
     QString filename = encoder->getFilename();
     int errorcode = encoder->getErrorcode();
 
@@ -27,10 +30,15 @@ void EncodingManager::encoderFinished(Encoder *encoder)
 
     emit completedFile(filename);
 
-    if (m_ui->hasInputFiles())
+    if (m_controller->hasInputFiles())
         dispatchEncoder();
     else
-        return;
+        return; // All done!
+}
+
+bool EncodingManager::isRunning()
+{
+    return m_runningThreads != 0;
 }
 
 void EncodingManager::run()

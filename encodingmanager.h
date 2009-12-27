@@ -5,18 +5,19 @@
 #include <QListWidget>
 #include <QLabel>
 
-#include "mainwindow.h"
+#include "controller.h"
 #include "encoder.h"
 
-class MainWindow;
+class Controller;
 
 class EncodingManager : public QThread
 {
     Q_OBJECT
 
 public:
-    EncodingManager(MainWindow *ui);
+    EncodingManager(Controller *controller);
     void run();
+    bool isRunning();
 
 signals:
     void convertingFile(QString file);
@@ -28,7 +29,8 @@ private slots:
 private:
     void dispatchEncoder();
 
-    MainWindow *m_ui;
+    Controller *m_controller;
+    int m_runningThreads;
 };
 
 #endif // ENCODINGMANAGER_H
