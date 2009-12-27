@@ -5,7 +5,9 @@ TARGET = easy-video-converter
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
-    encodingmanager.cpp
+    encodingmanager.cpp \
+    encoder.cpp
 HEADERS += mainwindow.h \
-    encodingmanager.h
+    encodingmanager.h \
+    encoder.h
 FORMS += mainwindow.ui

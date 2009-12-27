@@ -7,10 +7,36 @@ EncodingManager::EncodingManager(MainWindow *ui)
     m_ui = ui;
 }
 
+void EncodingManager::dispatchEncoder()
+{
+    QString filename = m_ui->takeTopInputFile();
+    emit convertingFile(filename);
+    Encoder *encoder = new Encoder(filename);
+    connect(encoder, SIGNAL(finishedEncoding(Encoder *)), this, SLOT(encoderFinished(Encoder *)));
+    encoder->start();
+}
+
+void EncodingManager::encoderFinished(Encoder *encoder)
+{
+    QString filename = encoder->getFilename();
+    int errorcode = encoder->getErrorcode();
+
+    delete encoder;
+
+    qDebug() << "Encodingmanager finished encoder with" << filename << "and " << errorcode;
+
+    emit completedFile(filename);
+
+    if (m_ui->hasInputFiles())
+        dispatchEncoder();
+    else
+        return;
+}
+
 void EncodingManager::run()
 {
-
-    while (m_ui->hasInputFiles())
+    dispatchEncoder();
+ /*    while (m_ui->hasInputFiles())
     {
         QString filename = m_ui->takeTopInputFile();
         qDebug() << "Handling" << filename;
@@ -18,4 +44,5 @@ void EncodingManager::run()
         sleep(2);
         emit completedFile(filename);
     }
+    */
 }

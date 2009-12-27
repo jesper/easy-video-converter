@@ -6,6 +6,7 @@
 #include <QLabel>
 
 #include "mainwindow.h"
+#include "encoder.h"
 
 class MainWindow;
 
@@ -21,7 +22,12 @@ signals:
     void convertingFile(QString file);
     void completedFile(QString file);
 
+private slots:
+    void encoderFinished(Encoder *encoder);
+
 private:
+    void dispatchEncoder();
+
     MainWindow *m_ui;
 };
 
