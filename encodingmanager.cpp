@@ -35,14 +35,8 @@ void EncodingManager::encoderFinished(Encoder *encoder)
 
 void EncodingManager::run()
 {
-    dispatchEncoder();
- /*    while (m_ui->hasInputFiles())
-    {
-        QString filename = m_ui->takeTopInputFile();
-        qDebug() << "Handling" << filename;
-        emit convertingFile(filename);
-        sleep(2);
-        emit completedFile(filename);
-    }
-    */
+    int threads = QThread::idealThreadCount();
+
+    for (int i=0; i < threads; ++i)
+        dispatchEncoder();
 }
