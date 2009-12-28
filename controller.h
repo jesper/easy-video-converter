@@ -18,7 +18,7 @@ public:
 
 private slots:
     void startClicked();
-    void inputFilesAdded();
+    void newInputFilesAdded(QStringList filenames);
 
 private:
     MainWindow *m_ui;

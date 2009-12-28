@@ -9,15 +9,15 @@ Controller::Controller()
 
 
     connect(m_encodingManager, SIGNAL(convertingFile(QString)), m_ui, SLOT(addConvertingFile(QString)));
-    connect(m_encodingManager, SIGNAL(completedFile(QString)), m_ui, SLOT(addCompletedFile(QString)));
+    connect(m_encodingManager, SIGNAL(completedFile(QString)), m_ui, SLOT(moveFromConvertingToCompleted(QString)));
     connect(m_ui, SIGNAL(startClicked()), this, SLOT(startClicked()));
-    connect(m_ui, SIGNAL(inputFilesAdded()), this, SLOT(inputFilesAdded()));
+    connect(m_ui, SIGNAL(newInputFilesAdded(QStringList)), this, SLOT(newInputFilesAdded(QStringList)));
 }
 
-void Controller::inputFilesAdded()
+void Controller::newInputFilesAdded(QStringList filenames)
 {
-    if (!m_encodingManager->isRunning())
-        m_ui->setStartButtonEnabled(true);
+    //TBD - Check for valid files
+    m_ui->addInputFiles(filenames);
 }
 
 void Controller::startClicked()

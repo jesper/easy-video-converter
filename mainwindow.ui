@@ -60,13 +60,8 @@
             </font>
            </property>
            <property name="styleSheet">
-            <string>color :red</string>
+            <string notr="true"/>
            </property>
-           <item>
-            <property name="text">
-             <string>&lt;no input file(s) selected&gt;</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
@@ -112,10 +107,10 @@
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">color :red</string>
+              <string notr="true"/>
              </property>
              <property name="text">
-              <string>&lt;no directory selected&gt;</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -367,7 +362,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

@@ -11,8 +11,11 @@ EncodingManager::EncodingManager(Controller *controller)
 void EncodingManager::dispatchEncoder()
 {
     ++m_runningThreads;
+
     QString filename = m_controller->takeTopInputFile();
+
     emit convertingFile(filename);
+
     Encoder *encoder = new Encoder(filename);
     connect(encoder, SIGNAL(finishedEncoding(Encoder *)), this, SLOT(encoderFinished(Encoder *)));
     encoder->start();
@@ -45,6 +48,6 @@ void EncodingManager::run()
 {
     int threads = QThread::idealThreadCount();
 
-    for (int i=0; i < threads; ++i)
+    for (int i=0; (i < threads) && (m_controller->hasInputFiles()); ++i)
         dispatchEncoder();
 }

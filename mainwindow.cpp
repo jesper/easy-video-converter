@@ -4,8 +4,6 @@
 #include <QFileDialog>
 #include <QDebug>
 
-
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), m_ui(new Ui::MainWindow)
 {
@@ -31,9 +29,10 @@ bool MainWindow::hasInputFiles()
 void MainWindow::addConvertingFile(QString file)
 {
     m_ui->lw_converting->addItem(file);
+    updateStartButtonState();
 }
 
-void MainWindow::addCompletedFile(QString filename)
+void MainWindow::moveFromConvertingToCompleted(QString filename)
 {
     //Find the item in the Converting list widget
     QList<QListWidgetItem *> items = m_ui->lw_converting->findItems(filename, Qt::MatchExactly);
@@ -42,12 +41,12 @@ void MainWindow::addCompletedFile(QString filename)
     m_ui->lw_converting->takeItem(m_ui->lw_converting->row(items.first()));
 
     m_ui->lw_completed->addItem(filename);
+
+    updateStartButtonState();
 }
 
 void MainWindow::startButtonClicked()
 {
-    m_ui->pb_start->setEnabled(false);
-
     emit startClicked();
 }
 
@@ -63,6 +62,32 @@ void MainWindow::selectDirectoryClicked()
 
      //TBD: Check that the directory is writable/etc
      m_ui->l_directory->setText(dir);
+
+     updateStartButtonState();
+}
+
+QString MainWindow::getOutputDirectory()
+{
+    return m_ui->l_directory->text();
+}
+
+void MainWindow::updateStartButtonState()
+{
+    bool enabled = true;
+
+    //No input files, disable
+    if (m_ui->lw_files->count() == 0)
+        enabled = false;
+
+    //Files being converted, disable
+    if (m_ui->lw_converting->count() != 0)
+        enabled = false;
+
+    //No output directory, disable
+    if (m_ui->l_directory->text().isNull())
+        enabled = false;
+
+    m_ui->pb_start->setEnabled(enabled);
 }
 
 void MainWindow::addFilesClicked()
@@ -73,24 +98,15 @@ void MainWindow::addFilesClicked()
     if (filenames.length() == 0)
         return;
 
-    //If there's files, then clear the list of the red dummy text
-    if (m_ui->lw_files->styleSheet() != "")
-    {
-        m_ui->lw_files->setStyleSheet("");
-        m_ui->lw_files->clear();
+    //TBB - Add checking for duplicates
 
-    }
-
-    //TBD: Add checking for duplicates
-    //TBD: Check for valid movie files
-    m_ui->lw_files->addItems(filenames);
-
-    emit inputFilesAdded();
+    emit newInputFilesAdded(filenames);
 }
 
-void MainWindow::setStartButtonEnabled(bool enabled)
+void MainWindow::addInputFiles(QStringList filenames)
 {
-    m_ui->pb_start->setEnabled(enabled);
+    m_ui->lw_files->addItems(filenames);
+    updateStartButtonState();
 }
 
 MainWindow::~MainWindow()

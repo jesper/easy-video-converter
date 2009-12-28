@@ -22,15 +22,16 @@ public:
 
     bool hasInputFiles();
     QString takeTopInputFile();
-    void setStartButtonEnabled(bool enabled);
+    QString getOutputDirectory();
+    void addInputFiles(QStringList filenames);
 
 public slots:
     void addConvertingFile(QString file);
-    void addCompletedFile(QString file);
+    void moveFromConvertingToCompleted(QString file);
 
 signals:
     void startClicked();
-    void inputFilesAdded();
+    void newInputFilesAdded(QStringList filenames);
 
 private slots:
     void addFilesClicked();
@@ -38,6 +39,7 @@ private slots:
     void startButtonClicked();
 
 private:
+    void updateStartButtonState();
     Ui::MainWindow *m_ui;
 };
 
