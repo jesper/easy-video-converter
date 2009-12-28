@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QDebug>
 
+//TBD - Allow dragging of files into input files list
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), m_ui(new Ui::MainWindow)
 {
@@ -12,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ui->pb_addFiles, SIGNAL(clicked()), this, SLOT(addFilesClicked()));
     connect(m_ui->pb_directory, SIGNAL(clicked()), this, SLOT(selectDirectoryClicked()));
 
-    //TBD: Disable "start" button untill files are added and output dir/format are selected.
     connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startButtonClicked()));
 
     updateStates();
