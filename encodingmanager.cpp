@@ -2,8 +2,6 @@
 
 #include "encodingmanager.h"
 
-//TBD - If it starts off with only one file, then it will never dispatch more than one at a time again.
-
 EncodingManager::EncodingManager(Controller *controller)
 {
     m_controller = controller;
@@ -46,10 +44,21 @@ bool EncodingManager::isRunning()
     return m_runningThreads != 0;
 }
 
+void EncodingManager::dispatch()
+{
+    int availableCores = QThread::idealThreadCount();
+
+    availableCores -= m_runningThreads;
+
+    //No cores? Bail out
+    if (availableCores < 1)
+        return;
+
+    for (int i=0; (i < availableCores) && (m_controller->hasInputFiles()); ++i)
+        dispatchEncoder();
+}
+
 void EncodingManager::run()
 {
-    int threads = QThread::idealThreadCount();
-
-    for (int i=0; (i < threads) && (m_controller->hasInputFiles()); ++i)
-        dispatchEncoder();
+    dispatch();
 }

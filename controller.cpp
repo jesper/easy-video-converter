@@ -7,7 +7,6 @@ Controller::Controller()
     m_ui = new MainWindow();
     m_ui->show();    
 
-
     connect(m_encodingManager, SIGNAL(convertingFile(QString)), m_ui, SLOT(addConvertingFile(QString)));
     connect(m_encodingManager, SIGNAL(completedFile(QString)), m_ui, SLOT(moveFromConvertingToCompleted(QString)));
     connect(m_ui, SIGNAL(startClicked()), this, SLOT(startClicked()));
@@ -18,6 +17,9 @@ void Controller::newInputFilesAdded(QStringList filenames)
 {
     //TBD - Check for valid files
     m_ui->addInputFiles(filenames);
+
+    if (m_encodingManager->isRunning())
+        m_encodingManager->dispatch();
 }
 
 void Controller::startClicked()

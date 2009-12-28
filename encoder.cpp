@@ -21,6 +21,6 @@ int Encoder::getErrorcode()
 void Encoder::run()
 {
     m_errorcode = QProcess::execute("whoami");
-    sleep(1);
+    sleep(2);
     emit finishedEncoding(this);
 }

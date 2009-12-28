@@ -18,6 +18,7 @@ public:
     EncodingManager(Controller *controller);
     void run();
     bool isRunning();
+    void dispatch();
 
 signals:
     void convertingFile(QString file);
