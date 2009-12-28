@@ -11,5 +11,6 @@ SOURCES += main.cpp \
 HEADERS += mainwindow.h \
     encodingmanager.h \
     encoder.h \
-    controller.h
+    controller.h \
+    misc.h
 FORMS += mainwindow.ui
