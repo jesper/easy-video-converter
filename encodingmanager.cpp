@@ -2,6 +2,8 @@
 
 #include "encodingmanager.h"
 
+//TBD - If it starts off with only one file, then it will never dispatch more than one at a time again.
+
 EncodingManager::EncodingManager(Controller *controller)
 {
     m_controller = controller;

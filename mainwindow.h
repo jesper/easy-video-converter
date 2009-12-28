@@ -39,7 +39,7 @@ private slots:
     void startButtonClicked();
 
 private:
-    void updateStartButtonState();
+    void updateStates();
     Ui::MainWindow *m_ui;
 };
 

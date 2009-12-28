@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     //TBD: Disable "start" button untill files are added and output dir/format are selected.
     connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startButtonClicked()));
+
+    updateStates();
 }
 
 QString MainWindow::takeTopInputFile()
@@ -29,7 +31,7 @@ bool MainWindow::hasInputFiles()
 void MainWindow::addConvertingFile(QString file)
 {
     m_ui->lw_converting->addItem(file);
-    updateStartButtonState();
+    updateStates();
 }
 
 void MainWindow::moveFromConvertingToCompleted(QString filename)
@@ -42,7 +44,7 @@ void MainWindow::moveFromConvertingToCompleted(QString filename)
 
     m_ui->lw_completed->addItem(filename);
 
-    updateStartButtonState();
+    updateStates();
 }
 
 void MainWindow::startButtonClicked()
@@ -58,12 +60,10 @@ void MainWindow::selectDirectoryClicked()
     if (dir.isEmpty())
         return;
 
-     m_ui->l_directory->setStyleSheet("");
+    //TBD - Check that the directory is writable/etc
+    m_ui->l_directory->setText(dir);
 
-     //TBD: Check that the directory is writable/etc
-     m_ui->l_directory->setText(dir);
-
-     updateStartButtonState();
+    updateStates();
 }
 
 QString MainWindow::getOutputDirectory()
@@ -71,23 +71,39 @@ QString MainWindow::getOutputDirectory()
     return m_ui->l_directory->text();
 }
 
-void MainWindow::updateStartButtonState()
+void MainWindow::updateStates()
 {
-    bool enabled = true;
+    bool startEnabled = true;
 
     //No input files, disable
     if (m_ui->lw_files->count() == 0)
-        enabled = false;
+    {
+        m_ui->pb_addFiles->setStyleSheet("color :red");
+        startEnabled = false;
+    }
+    else
+    {
+        m_ui->pb_addFiles->setStyleSheet("");
+    }
 
     //Files being converted, disable
     if (m_ui->lw_converting->count() != 0)
-        enabled = false;
+        startEnabled = false;
 
     //No output directory, disable
     if (m_ui->l_directory->text().isNull())
-        enabled = false;
+    {
+        m_ui->pb_directory->setStyleSheet("color :red");
+        startEnabled = false;
+    }
+    else
+    {
+        m_ui->pb_directory->setStyleSheet("");
+    }
 
-    m_ui->pb_start->setEnabled(enabled);
+
+    m_ui->pb_start->setEnabled(startEnabled);
+    
 }
 
 void MainWindow::addFilesClicked()
@@ -106,7 +122,7 @@ void MainWindow::addFilesClicked()
 void MainWindow::addInputFiles(QStringList filenames)
 {
     m_ui->lw_files->addItems(filenames);
-    updateStartButtonState();
+    updateStates();
 }
 
 MainWindow::~MainWindow()
