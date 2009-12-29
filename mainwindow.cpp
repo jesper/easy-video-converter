@@ -24,12 +24,24 @@ MainWindow::MainWindow(QWidget *parent)
     updateStates();
 }
 
+ConsumptionLevel MainWindow::getConsumptionLevel()
+{
+    if (m_ui->rb_low->isChecked())
+        return Low;
+
+    if (m_ui->rb_medium->isChecked())
+        return Medium;
+
+    if (m_ui->rb_max->isChecked())
+        return Max;
+}
+
 void MainWindow::lowClicked()
 {
     m_ui->rb_max->setChecked(false);
     m_ui->rb_medium->setChecked(false);
 
-    emit consumptionLevelClicked(Low);
+    emit consumptionLevelChanged();
 }
 
 void MainWindow::mediumClicked()
@@ -37,7 +49,7 @@ void MainWindow::mediumClicked()
     m_ui->rb_max->setChecked(false);
     m_ui->rb_low->setChecked(false);
 
-    emit consumptionLevelClicked(Medium);
+    emit consumptionLevelChanged();
 }
 
 void MainWindow::maxClicked()
@@ -45,7 +57,7 @@ void MainWindow::maxClicked()
     m_ui->rb_low->setChecked(false);
     m_ui->rb_medium->setChecked(false);
 
-    emit consumptionLevelClicked(Max);
+    emit consumptionLevelChanged();
 }
 
 QString MainWindow::takeTopInputFile()

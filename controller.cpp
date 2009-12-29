@@ -14,12 +14,17 @@ Controller::Controller()
 
     connect(m_ui, SIGNAL(startClicked()), this, SLOT(startClicked()));
     connect(m_ui, SIGNAL(newInputFilesAdded(QStringList)), this, SLOT(newInputFilesAdded(QStringList)));
-    connect(m_ui, SIGNAL(consumptionLevelClicked(ConsumptionLevel)), this, SLOT(consumptionLevelClicked(ConsumptionLevel)));
+    connect(m_ui, SIGNAL(consumptionLevelChanged()), this, SLOT(consumptionLevelChanged()));
 }
 
-void Controller::consumptionLevelClicked(ConsumptionLevel level)
+void Controller::consumptionLevelChanged()
 {
-    qDebug() << "Level changed to:" << level;
+    if (m_encodingManager->isRunning())
+        m_encodingManager->dispatch();
+}
+ConsumptionLevel Controller::getConsumptionLevel()
+{
+    return m_ui->getConsumptionLevel();
 }
 
 void Controller::newInputFilesAdded(QStringList filenames)

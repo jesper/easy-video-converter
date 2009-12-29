@@ -16,11 +16,12 @@ public:
     Controller();
     QString takeTopInputFile();
     bool hasInputFiles();
+    ConsumptionLevel getConsumptionLevel();
 
 private slots:
     void startClicked();
     void newInputFilesAdded(QStringList filenames);
-    void consumptionLevelClicked(ConsumptionLevel level);
+    void consumptionLevelChanged();
 
 private:
     MainWindow *m_ui;

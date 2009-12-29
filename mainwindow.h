@@ -25,6 +25,7 @@ public:
     QString takeTopInputFile();
     QString getOutputDirectory();
     void addInputFiles(QStringList filenames);
+    ConsumptionLevel getConsumptionLevel();
 
 public slots:
     void addConvertingFile(QString file);
@@ -33,7 +34,7 @@ public slots:
 signals:
     void startClicked();
     void newInputFilesAdded(QStringList filenames);
-    void consumptionLevelClicked(ConsumptionLevel);
+    void consumptionLevelChanged();
 
 private slots:
     void addFilesClicked();

@@ -10,6 +10,10 @@ EncodingManager::EncodingManager(Controller *controller)
 
 void EncodingManager::dispatchEncoder()
 {
+    //No cores? Crap out...
+    if (!isCoreAvailable() || !m_controller->hasInputFiles())
+        return;
+
     ++m_runningThreads;
 
     QString filename = m_controller->takeTopInputFile();
@@ -33,10 +37,7 @@ void EncodingManager::encoderFinished(Encoder *encoder)
 
     emit completedFile(filename);
 
-    if (m_controller->hasInputFiles())
-        dispatchEncoder();
-    else
-        return; // All done!
+    dispatchEncoder();
 }
 
 bool EncodingManager::isRunning()
@@ -44,17 +45,34 @@ bool EncodingManager::isRunning()
     return m_runningThreads != 0;
 }
 
-void EncodingManager::dispatch()
+bool EncodingManager::isCoreAvailable()
 {
+    ConsumptionLevel level = m_controller->getConsumptionLevel();
+
     int availableCores = QThread::idealThreadCount();
+
+    switch (level)
+    {
+            case Low:
+                availableCores = 1;
+                break;
+            case Medium:
+                availableCores = availableCores/2;
+                break;
+    }
+
+    qDebug() << "Cores avail:" << availableCores;
 
     availableCores -= m_runningThreads;
 
-    //No cores? Bail out
-    if (availableCores < 1)
-        return;
+    qDebug() << "Cores avail total:" << availableCores;
 
-    for (int i=0; (i < availableCores) && (m_controller->hasInputFiles()); ++i)
+    return (availableCores > 0);
+}
+
+void EncodingManager::dispatch()
+{
+    while ((isCoreAvailable()) && (m_controller->hasInputFiles()))
         dispatchEncoder();
 }
 

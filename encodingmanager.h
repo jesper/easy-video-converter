@@ -7,6 +7,7 @@
 
 #include "controller.h"
 #include "encoder.h"
+#include "misc.h"
 
 class Controller;
 
@@ -19,6 +20,7 @@ public:
     void run();
     bool isRunning();
     void dispatch();
+    void setConsumptionLevel(ConsumptionLevel level);
 
 signals:
     void convertingFile(QString file);
@@ -29,6 +31,7 @@ private slots:
 
 private:
     void dispatchEncoder();
+    bool isCoreAvailable();
 
     Controller *m_controller;
     int m_runningThreads;
