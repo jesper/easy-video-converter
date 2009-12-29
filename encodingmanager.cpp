@@ -59,6 +59,8 @@ bool EncodingManager::isCoreAvailable()
             case Medium:
                 availableCores = availableCores/2;
                 break;
+            case Max:
+                break;
     }
 
     qDebug() << "Cores avail:" << availableCores;
