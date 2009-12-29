@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "controller.h"
 
 Controller::Controller()
@@ -9,8 +11,15 @@ Controller::Controller()
 
     connect(m_encodingManager, SIGNAL(convertingFile(QString)), m_ui, SLOT(addConvertingFile(QString)));
     connect(m_encodingManager, SIGNAL(completedFile(QString)), m_ui, SLOT(moveFromConvertingToCompleted(QString)));
+
     connect(m_ui, SIGNAL(startClicked()), this, SLOT(startClicked()));
     connect(m_ui, SIGNAL(newInputFilesAdded(QStringList)), this, SLOT(newInputFilesAdded(QStringList)));
+    connect(m_ui, SIGNAL(consumptionLevelClicked(ConsumptionLevel)), this, SLOT(consumptionLevelClicked(ConsumptionLevel)));
+}
+
+void Controller::consumptionLevelClicked(ConsumptionLevel level)
+{
+    qDebug() << "Level changed to:" << level;
 }
 
 void Controller::newInputFilesAdded(QStringList filenames)

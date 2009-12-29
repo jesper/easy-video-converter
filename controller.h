@@ -3,6 +3,7 @@
 
 #include "mainwindow.h"
 #include "encodingmanager.h"
+#include "misc.h"
 
 class EncodingManager;
 class MainWindow;
@@ -19,6 +20,7 @@ public:
 private slots:
     void startClicked();
     void newInputFilesAdded(QStringList filenames);
+    void consumptionLevelClicked(ConsumptionLevel level);
 
 private:
     MainWindow *m_ui;

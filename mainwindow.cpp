@@ -16,7 +16,36 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(m_ui->pb_start, SIGNAL(clicked()), this, SLOT(startButtonClicked()));
 
+    connect(m_ui->rb_low, SIGNAL(clicked()), this, SLOT(lowClicked()));
+    connect(m_ui->rb_medium, SIGNAL(clicked()), this, SLOT(mediumClicked()));
+    connect(m_ui->rb_max, SIGNAL(clicked()), this, SLOT(maxClicked()));
+
+
     updateStates();
+}
+
+void MainWindow::lowClicked()
+{
+    m_ui->rb_max->setChecked(false);
+    m_ui->rb_medium->setChecked(false);
+
+    emit consumptionLevelClicked(Low);
+}
+
+void MainWindow::mediumClicked()
+{
+    m_ui->rb_max->setChecked(false);
+    m_ui->rb_low->setChecked(false);
+
+    emit consumptionLevelClicked(Medium);
+}
+
+void MainWindow::maxClicked()
+{
+    m_ui->rb_low->setChecked(false);
+    m_ui->rb_medium->setChecked(false);
+
+    emit consumptionLevelClicked(Max);
 }
 
 QString MainWindow::takeTopInputFile()

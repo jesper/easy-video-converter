@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 
 #include "encodingmanager.h"
+#include "misc.h"
 
 namespace Ui
 {
@@ -32,11 +33,15 @@ public slots:
 signals:
     void startClicked();
     void newInputFilesAdded(QStringList filenames);
+    void consumptionLevelClicked(ConsumptionLevel);
 
 private slots:
     void addFilesClicked();
     void selectDirectoryClicked();
     void startButtonClicked();
+    void lowClicked();
+    void mediumClicked();
+    void maxClicked();
 
 private:
     void updateStates();

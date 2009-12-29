@@ -1,9 +1,10 @@
 #ifndef MISC_H
 #define MISC_H
 
-enum Consumption {
+enum ConsumptionLevel {
     Low,
     Medium,
-    High
-}
+    Max
+};
+
 #endif // MISC_H
