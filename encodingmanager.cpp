@@ -63,18 +63,14 @@ bool EncodingManager::isCoreAvailable()
                 break;
     }
 
-    qDebug() << "Cores avail:" << availableCores;
-
     availableCores -= m_runningThreads;
-
-    qDebug() << "Cores avail total:" << availableCores;
 
     return (availableCores > 0);
 }
 
 void EncodingManager::dispatch()
 {
-    while ((isCoreAvailable()) && (m_controller->hasInputFiles()))
+    while (isCoreAvailable() && m_controller->hasInputFiles())
         dispatchEncoder();
 }
 

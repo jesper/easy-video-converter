@@ -22,6 +22,7 @@ void Controller::consumptionLevelChanged()
     if (m_encodingManager->isRunning())
         m_encodingManager->dispatch();
 }
+
 ConsumptionLevel Controller::getConsumptionLevel()
 {
     return m_ui->getConsumptionLevel();

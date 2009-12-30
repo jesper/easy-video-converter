@@ -247,7 +247,7 @@
             </font>
            </property>
            <property name="title">
-            <string>System Resource Consumption Settings</string>
+            <string>System Resources Consumption Settings</string>
            </property>
            <widget class="QWidget" name="horizontalLayoutWidget">
             <property name="geometry">
