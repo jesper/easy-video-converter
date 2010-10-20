@@ -20,8 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ui->rb_medium, SIGNAL(clicked()), this, SLOT(mediumClicked()));
     connect(m_ui->rb_max, SIGNAL(clicked()), this, SLOT(maxClicked()));
 
-
     updateStates();
+
+    m_formatDelegate = new FormatDelegate(this);
+    m_ui->cb_format->setItemDelegate(m_formatDelegate);
 }
 
 ConsumptionLevel MainWindow::getConsumptionLevel()

@@ -5,6 +5,7 @@
 
 #include "encodingmanager.h"
 #include "misc.h"
+#include "formatdelegate.h"
 
 namespace Ui
 {
@@ -47,6 +48,7 @@ private slots:
 private:
     void updateStates();
     Ui::MainWindow *m_ui;
+    FormatDelegate *m_formatDelegate;
 };
 
 #endif // MAINWINDOW_H

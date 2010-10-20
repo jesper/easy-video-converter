@@ -128,38 +128,17 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QPushButton" name="pushButton">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>TBD - Select Format</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-               <weight>50</weight>
-               <italic>true</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string>color :red</string>
-             </property>
-             <property name="text">
-              <string>&lt;no format selected&gt;</string>
-             </property>
+            <widget class="QComboBox" name="cb_format">
+             <item>
+              <property name="text">
+               <string>Fake item 1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>fake item 2</string>
+              </property>
+             </item>
             </widget>
            </item>
           </layout>

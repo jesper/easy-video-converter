@@ -7,10 +7,12 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     encodingmanager.cpp \
     encoder.cpp \
-    controller.cpp
+    controller.cpp \
+    formatdelegate.cpp
 HEADERS += mainwindow.h \
     encodingmanager.h \
     encoder.h \
     controller.h \
-    misc.h
+    misc.h \
+    formatdelegate.h
 FORMS += mainwindow.ui
