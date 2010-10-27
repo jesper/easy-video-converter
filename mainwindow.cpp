@@ -26,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_ui->cb_format->setItemDelegate(m_formatDelegate);
 }
 
+void MainWindow::addFormat(QString format)
+{
+    m_ui->cb_format->addItem(format);
+}
+
 ConsumptionLevel MainWindow::getConsumptionLevel()
 {
     if (m_ui->rb_low->isChecked())
@@ -148,9 +153,7 @@ void MainWindow::updateStates()
         m_ui->pb_directory->setStyleSheet("");
     }
 
-
     m_ui->pb_start->setEnabled(startEnabled);
-    
 }
 
 void MainWindow::addFilesClicked()

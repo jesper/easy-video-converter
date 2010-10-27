@@ -24,6 +24,8 @@ private slots:
     void consumptionLevelChanged();
 
 private:
+    void populateFormats();
+
     MainWindow *m_ui;
     EncodingManager *m_encodingManager;
 

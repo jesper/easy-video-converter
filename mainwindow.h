@@ -27,6 +27,7 @@ public:
     QString getOutputDirectory();
     void addInputFiles(QStringList filenames);
     ConsumptionLevel getConsumptionLevel();
+    void addFormat(QString format);
 
 public slots:
     void addConvertingFile(QString file);

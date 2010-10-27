@@ -7,6 +7,9 @@ Controller::Controller()
     m_encodingManager = new EncodingManager(this);
 
     m_ui = new MainWindow();
+
+    populateFormats();
+
     m_ui->show();    
 
     connect(m_encodingManager, SIGNAL(convertingFile(QString)), m_ui, SLOT(addConvertingFile(QString)));
@@ -15,6 +18,12 @@ Controller::Controller()
     connect(m_ui, SIGNAL(startClicked()), this, SLOT(startClicked()));
     connect(m_ui, SIGNAL(newInputFilesAdded(QStringList)), this, SLOT(newInputFilesAdded(QStringList)));
     connect(m_ui, SIGNAL(consumptionLevelChanged()), this, SLOT(consumptionLevelChanged()));
+}
+
+void Controller::populateFormats()
+{
+    m_ui->addFormat("faux item 1");
+    m_ui->addFormat("faux item 2");
 }
 
 void Controller::consumptionLevelChanged()

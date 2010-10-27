@@ -128,18 +128,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QComboBox" name="cb_format">
-             <item>
-              <property name="text">
-               <string>Fake item 1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>fake item 2</string>
-              </property>
-             </item>
-            </widget>
+            <widget class="QComboBox" name="cb_format"/>
            </item>
           </layout>
          </item>
@@ -350,7 +339,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
