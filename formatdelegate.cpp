@@ -10,9 +10,10 @@ FormatDelegate::FormatDelegate(QObject *parent) :
 void FormatDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                            const QModelIndex &index) const
 {
-    //painter->drawText(option.rect.bottomLeft(), index.model()->data(index).toString());
-    QStyledItemDelegate::paint(painter, option, index);
-    qDebug() << "painting" << index.model()->data(index).toString();
+    if (option.state & QStyle::State_MouseOver)
+        painter->fillRect(option.rect, Qt::lightGray);
+
+    painter->drawText(0, option.rect.center().y(), index.model()->data(index).toString());
 }
 
 QSize FormatDelegate::sizeHint(const QStyleOptionViewItem &option,

@@ -36,6 +36,9 @@ ConsumptionLevel MainWindow::getConsumptionLevel()
 
     if (m_ui->rb_max->isChecked())
         return Max;
+
+    //Should never happen
+    return Low;
 }
 
 void MainWindow::lowClicked()
