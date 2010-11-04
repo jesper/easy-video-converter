@@ -26,9 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_ui->cb_format->setItemDelegate(m_formatDelegate);
 }
 
-void MainWindow::addFormat(QString format)
+void MainWindow::addFormat(Format format)
 {
-    m_ui->cb_format->addItem(format);
+    m_ui->cb_format->addItem(format.getName());
 }
 
 ConsumptionLevel MainWindow::getConsumptionLevel()

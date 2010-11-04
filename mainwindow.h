@@ -6,6 +6,7 @@
 #include "encodingmanager.h"
 #include "misc.h"
 #include "formatdelegate.h"
+#include "format.h"
 
 namespace Ui
 {
@@ -27,7 +28,7 @@ public:
     QString getOutputDirectory();
     void addInputFiles(QStringList filenames);
     ConsumptionLevel getConsumptionLevel();
-    void addFormat(QString format);
+    void addFormat(Format format);
 
 public slots:
     void addConvertingFile(QString file);

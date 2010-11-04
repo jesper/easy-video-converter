@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "encodingmanager.h"
 #include "misc.h"
+#include "format.h"
 
 class EncodingManager;
 class MainWindow;

@@ -8,11 +8,13 @@ SOURCES += main.cpp \
     encodingmanager.cpp \
     encoder.cpp \
     controller.cpp \
-    formatdelegate.cpp
+    formatdelegate.cpp \
+    format.cpp
 HEADERS += mainwindow.h \
     encodingmanager.h \
     encoder.h \
     controller.h \
     misc.h \
-    formatdelegate.h
+    formatdelegate.h \
+    format.h
 FORMS += mainwindow.ui

@@ -22,8 +22,9 @@ Controller::Controller()
 
 void Controller::populateFormats()
 {
-    m_ui->addFormat("faux item 1");
-    m_ui->addFormat("faux item 2");
+    // UNTESTED! Dunno how accurate these are - or if they even work
+    m_ui->addFormat(Format("N900", "-vcodec libx264 -vpre hq -vpre ipod640 -b 800k -s #{osize[0]}x#{osize[1]} -acodec libmp3lame -ab 128k -ac 2"));
+    m_ui->addFormat(Format("1080 HD Video", "-vcodec libxvid -b 18000k -acodec libmp3lame -ac 2 -ab 256k -deinterlace -s 1920x1080"));
 }
 
 void Controller::consumptionLevelChanged()
