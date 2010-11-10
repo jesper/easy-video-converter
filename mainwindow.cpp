@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QDebug>
 
+//TBD - Make required fields UI more intuitive. Red text isn't enough
 //TBD - Allow dragging of files into input files list
 
 MainWindow::MainWindow(QWidget *parent)
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::addFormat(Format format)
 {
-    m_ui->cb_format->addItem(format.getName());
+    m_ui->cb_format->addItem(format.getName(), format.getArgs());
 }
 
 ConsumptionLevel MainWindow::getConsumptionLevel()
