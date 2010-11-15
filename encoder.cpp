@@ -20,6 +20,8 @@ int Encoder::getErrorcode()
 
 void Encoder::run()
 {
+    //TBD - Use real encoder arguments
+    //TBD - Use real output directory
     QString argstring = "-i " + m_filename.trimmed() + " -vcodec libxvid -b 18000k -acodec libmp3lame -ac 2 -ab 256k -deinterlace -s 1920x1080 " + m_filename.trimmed() + ".avi";
 
     //m_errorcode = QProcess::execute("ffmpeg", argstring.split(" "));
