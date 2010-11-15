@@ -20,7 +20,7 @@ void EncodingManager::dispatchEncoder()
 
     emit convertingFile(filename);
 
-    Encoder *encoder = new Encoder(filename);
+    Encoder *encoder = new Encoder(filename,  m_controller->getEncoderArguments());
     connect(encoder, SIGNAL(finishedEncoding(Encoder *)), this, SLOT(encoderFinished(Encoder *)));
     encoder->start();
 }
@@ -29,11 +29,12 @@ void EncodingManager::encoderFinished(Encoder *encoder)
 {
     --m_runningThreads;
     QString filename = encoder->getFilename();
-    int errorcode = encoder->getErrorcode();
+    int errorCode = encoder->getErrorCode();
+
+    //TBD - Use the error code for something
+    Q_ASSERT_X(errorCode == 0, "encoderFinished", "A ffmpeg instancer returned a non-zero error code");
 
     delete encoder;
-
-    qDebug() << "Encodingmanager finished encoder with" << filename << "and " << errorcode;
 
     emit completedFile(filename);
 

@@ -76,6 +76,11 @@ QString MainWindow::takeTopInputFile()
     return m_ui->lw_files->takeItem(0)->text();
 }
 
+QString MainWindow::getEncoderArguments()
+{
+    return m_ui->cb_format->itemData(m_ui->cb_format->currentIndex()).toString();
+}
+
 bool MainWindow::hasInputFiles()
 {
     return m_ui->lw_files->count() != 0;

@@ -16,6 +16,7 @@ class Controller : public QObject
 public:
     Controller();
     QString takeTopInputFile();
+    QString getEncoderArguments();
     bool hasInputFiles();
     ConsumptionLevel getConsumptionLevel();
 

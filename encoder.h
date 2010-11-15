@@ -8,17 +8,18 @@ class Encoder : public QThread
     Q_OBJECT
 
 public:
-    Encoder(QString filename);
+    Encoder(QString filename, QString encoderArguments);
     void run();
     QString getFilename();
-    int getErrorcode();
+    int getErrorCode();
 
 signals:
     void finishedEncoding(Encoder *encoder);
 
 private:
     QString m_filename;
-    int m_errorcode;
+    QString m_encoderArguments;
+    int m_errorCode;
 };
 
 #endif // ENCODER_H

@@ -25,6 +25,7 @@ public:
 
     bool hasInputFiles();
     QString takeTopInputFile();
+    QString getEncoderArguments();
     QString getOutputDirectory();
     void addInputFiles(QStringList filenames);
     ConsumptionLevel getConsumptionLevel();
