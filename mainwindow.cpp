@@ -146,7 +146,16 @@ void MainWindow::updateStates()
 
     //Files being converted, disable
     if (m_ui->lw_converting->count() != 0)
+    {
         startEnabled = false;
+        m_ui->cb_format->setEnabled(false);
+        m_ui->pb_directory->setEnabled(false);
+    }
+    else
+    {
+        m_ui->cb_format->setEnabled(true);
+        m_ui->pb_directory->setEnabled(true);
+    }
 
     //No output directory, disable
     if (m_ui->l_directory->text().isNull())

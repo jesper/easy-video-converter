@@ -22,7 +22,8 @@ int Encoder::getErrorCode()
 
 void Encoder::run()
 {
-    //TBD - Use real output directory
+    //TBD - Bug in output directory - have to use a proper QFile instead of QStrings everywhere
+    //      to get the filename without the full path
     QString args = "-i " + m_filename.trimmed() + " " + m_encoderArguments + " \"" \
                    + m_outputDirectory +"/" + m_filename.trimmed() + ".avi\"";
     //m_errorCode = QProcess::execute("ffmpeg", args.split(" "));
