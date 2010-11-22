@@ -57,6 +57,11 @@ QString Controller::getEncoderArguments()
     return m_ui->getEncoderArguments();
 }
 
+QString Controller::getOutputDirectory()
+{
+    return m_ui->getOutputDirectory();
+}
+
 QString Controller::takeTopInputFile()
 {
     return m_ui->takeTopInputFile();

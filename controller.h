@@ -17,6 +17,7 @@ public:
     Controller();
     QString takeTopInputFile();
     QString getEncoderArguments();
+    QString getOutputDirectory();
     bool hasInputFiles();
     ConsumptionLevel getConsumptionLevel();
 

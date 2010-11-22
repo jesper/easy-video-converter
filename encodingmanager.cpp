@@ -20,7 +20,7 @@ void EncodingManager::dispatchEncoder()
 
     emit convertingFile(filename);
 
-    Encoder *encoder = new Encoder(filename,  m_controller->getEncoderArguments());
+    Encoder *encoder = new Encoder(filename,  m_controller->getEncoderArguments(), m_controller->getOutputDirectory());
     connect(encoder, SIGNAL(finishedEncoding(Encoder *)), this, SLOT(encoderFinished(Encoder *)));
     encoder->start();
 }
