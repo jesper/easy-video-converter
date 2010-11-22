@@ -16,11 +16,12 @@ void EncodingManager::dispatchEncoder()
 
     ++m_runningThreads;
 
-    QString filename = m_controller->takeTopInputFile();
+    QFileInfo file = m_controller->takeTopInputFile();
 
-    emit convertingFile(filename);
+    emit convertingFile(file);
 
-    Encoder *encoder = new Encoder(filename,  m_controller->getEncoderArguments(), m_controller->getOutputDirectory());
+    Encoder *encoder = new Encoder(file,  m_controller->getEncoderArguments(), m_controller->getOutputDirectory());
+    qDebug() << "gogo encoder " << file.absoluteFilePath();
     connect(encoder, SIGNAL(finishedEncoding(Encoder *)), this, SLOT(encoderFinished(Encoder *)));
     encoder->start();
 }
@@ -28,7 +29,8 @@ void EncodingManager::dispatchEncoder()
 void EncodingManager::encoderFinished(Encoder *encoder)
 {
     --m_runningThreads;
-    QString filename = encoder->getFilename();
+    //TBD - use actual output filename
+    QFileInfo filename = encoder->getInputFilename();
     int errorCode = encoder->getErrorCode();
 
     //TBD - Use the error code for something

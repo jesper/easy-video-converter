@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
+#include <QFileInfo>
 
 #include "encodingmanager.h"
 #include "misc.h"
@@ -24,7 +25,7 @@ public:
     ~MainWindow();
 
     bool hasInputFiles();
-    QString takeTopInputFile();
+    QFileInfo takeTopInputFile();
     QString getEncoderArguments();
     QString getOutputDirectory();
     void addInputFiles(QStringList filenames);
@@ -32,8 +33,8 @@ public:
     void addFormat(Format format);
 
 public slots:
-    void addConvertingFile(QString file);
-    void moveFromConvertingToCompleted(QString file);
+    void addConvertingFile(QFileInfo file);
+    void moveFromConvertingToCompleted(QFileInfo file);
 
 signals:
     void startClicked();

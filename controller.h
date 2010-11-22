@@ -15,7 +15,7 @@ class Controller : public QObject
 
 public:
     Controller();
-    QString takeTopInputFile();
+    QFileInfo takeTopInputFile();
     QString getEncoderArguments();
     QString getOutputDirectory();
     bool hasInputFiles();

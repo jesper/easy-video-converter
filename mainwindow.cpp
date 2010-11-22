@@ -71,9 +71,9 @@ void MainWindow::maxClicked()
     emit consumptionLevelChanged();
 }
 
-QString MainWindow::takeTopInputFile()
+QFileInfo MainWindow::takeTopInputFile()
 {
-    return m_ui->lw_files->takeItem(0)->text();
+    return QFileInfo(m_ui->lw_files->takeItem(0)->text());
 }
 
 QString MainWindow::getEncoderArguments()
@@ -86,21 +86,23 @@ bool MainWindow::hasInputFiles()
     return m_ui->lw_files->count() != 0;
 }
 
-void MainWindow::addConvertingFile(QString file)
+void MainWindow::addConvertingFile(QFileInfo file)
 {
-    m_ui->lw_converting->addItem(file);
+    qDebug() << "***Converting" << file.absoluteFilePath();
+
+    m_ui->lw_converting->addItem(file.absoluteFilePath());
     updateStates();
 }
 
-void MainWindow::moveFromConvertingToCompleted(QString filename)
+void MainWindow::moveFromConvertingToCompleted(QFileInfo filename)
 {
     //Find the item in the Converting list widget
-    QList<QListWidgetItem *> items = m_ui->lw_converting->findItems(filename, Qt::MatchExactly);
+    QList<QListWidgetItem *> items = m_ui->lw_converting->findItems(filename.absoluteFilePath(), Qt::MatchExactly);
 
     //Remove the item from the Converting list widget
     m_ui->lw_converting->takeItem(m_ui->lw_converting->row(items.first()));
 
-    m_ui->lw_completed->addItem(filename);
+    m_ui->lw_completed->addItem(filename.absoluteFilePath());
 
     updateStates();
 }

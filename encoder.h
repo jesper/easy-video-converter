@@ -1,6 +1,7 @@
 #ifndef ENCODER_H
 #define ENCODER_H
 
+#include <QFileInfo>
 #include <QThread>
 
 class Encoder : public QThread
@@ -8,16 +9,17 @@ class Encoder : public QThread
     Q_OBJECT
 
 public:
-    Encoder(QString filename, QString encoderArguments, QString outputDirectory);
+    Encoder(QFileInfo filename, QString encoderArguments, QString outputDirectory);
     void run();
-    QString getFilename();
+    QFileInfo getInputFilename();
+    QFileInfo getOutputFilename();
     int getErrorCode();
 
 signals:
     void finishedEncoding(Encoder *encoder);
 
 private:
-    QString m_filename;
+    QFileInfo m_filename;
     QString m_encoderArguments;
     QString m_outputDirectory;
     int m_errorCode;

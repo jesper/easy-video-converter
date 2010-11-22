@@ -12,8 +12,10 @@ Controller::Controller()
 
     m_ui->show();    
 
-    connect(m_encodingManager, SIGNAL(convertingFile(QString)), m_ui, SLOT(addConvertingFile(QString)));
-    connect(m_encodingManager, SIGNAL(completedFile(QString)), m_ui, SLOT(moveFromConvertingToCompleted(QString)));
+    qRegisterMetaType<QFileInfo>("QFileInfo");
+
+    connect(m_encodingManager, SIGNAL(convertingFile(QFileInfo)), m_ui, SLOT(addConvertingFile(QFileInfo)));
+    connect(m_encodingManager, SIGNAL(completedFile(QFileInfo)), m_ui, SLOT(moveFromConvertingToCompleted(QFileInfo)));
 
     connect(m_ui, SIGNAL(startClicked()), this, SLOT(startClicked()));
     connect(m_ui, SIGNAL(newInputFilesAdded(QStringList)), this, SLOT(newInputFilesAdded(QStringList)));
@@ -62,7 +64,7 @@ QString Controller::getOutputDirectory()
     return m_ui->getOutputDirectory();
 }
 
-QString Controller::takeTopInputFile()
+QFileInfo Controller::takeTopInputFile()
 {
     return m_ui->takeTopInputFile();
 }

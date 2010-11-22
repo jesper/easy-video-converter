@@ -3,16 +3,21 @@
 
 #include "encoder.h"
 
-Encoder::Encoder(QString filename, QString encoderArguments, QString outputDirectory)
+Encoder::Encoder(QFileInfo filename, QString encoderArguments, QString outputDirectory)
 {
     m_filename = filename;
     m_encoderArguments = encoderArguments;
     m_outputDirectory = outputDirectory;
 }
 
-QString Encoder::getFilename()
+QFileInfo Encoder::getInputFilename()
 {
     return m_filename;
+}
+
+QFileInfo Encoder::getOutputFilename()
+{
+    return QFileInfo(m_outputDirectory + "/" + m_filename.fileName());
 }
 
 int Encoder::getErrorCode()
@@ -22,10 +27,8 @@ int Encoder::getErrorCode()
 
 void Encoder::run()
 {
-    //TBD - Bug in output directory - have to use a proper QFile instead of QStrings everywhere
-    //      to get the filename without the full path
-    QString args = "-i " + m_filename.trimmed() + " " + m_encoderArguments + " \"" \
-                   + m_outputDirectory +"/" + m_filename.trimmed() + ".avi\"";
+    QString args = "-i " + m_filename.absoluteFilePath().trimmed() + " " + m_encoderArguments + " \"" \
+                   + m_outputDirectory +"/" + m_filename.fileName() + ".avi\"";
     //m_errorCode = QProcess::execute("ffmpeg", args.split(" "));
     sleep(2);
     m_errorCode = 0;

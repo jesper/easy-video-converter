@@ -23,8 +23,8 @@ public:
     void setConsumptionLevel(ConsumptionLevel level);
 
 signals:
-    void convertingFile(QString file);
-    void completedFile(QString file);
+    void convertingFile(QFileInfo file);
+    void completedFile(QFileInfo file);
 
 private slots:
     void encoderFinished(Encoder *encoder);
